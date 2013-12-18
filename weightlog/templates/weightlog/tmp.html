@@ -1,0 +1,29 @@
+{% extends "weightlog/base.html" %}
+{% load staticfiles %}
+
+{% block extracss %}
+	<link rel="stylesheet" type="text/css" href="{% static "weightlog/w.css" %}" />
+{% endblock %}
+
+{% block title %}Workout test{% endblock %}
+
+{% block content %}
+	<dl class="wl">
+    {% for x, y in w %}
+	<dt class="w">{{ x.date }} - {{ x.name }}</dt>
+	{% for l in y %}
+	<dd class="e">
+		{% if l %}
+		{{ l }}  {{ l.weight }}x{{ l.sets }}x{{ l.reps }}
+		{% else %}
+		<br/> 
+		{% endif %}
+	</dd>
+	{% endfor %}
+    {% endfor %}
+	</dl>
+	<div class="vmore">
+		.<br/>.<br/>.
+	</div>
+	<img class="more" src="{% static "weightlog/more.svg" %}" />
+{% endblock %}

@@ -1,0 +1,13 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>{% block title %}{% endblock %}</title>
+		<link rel="stylesheet" type="text/css" href="{% static "weightlog/reset.css" %}" />
+		<link rel="stylesheet" type="text/css" href="{% static "weightlog/base.css" %}" />
+		{% block extracss %}{% endblock %}
+	</head>
+	<body>
+		{% block content %}{% endblock %}
+	</body>
+</html>

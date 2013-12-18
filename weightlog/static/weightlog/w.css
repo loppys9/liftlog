@@ -1,0 +1,23 @@
+.e {
+	padding: 0 4%;		
+}
+
+.w {
+	margin: 10px 0 5px;
+	border-top: 1px solid #666;
+}
+
+.wl {
+	border-bottom: 1px solid #666;
+}
+
+.vmore{
+	margin: 0 auto;
+	padding: 0;
+	text-align: center;
+}
+
+.more {
+	margin-left: 10px;
+	width: 3px;
+}
