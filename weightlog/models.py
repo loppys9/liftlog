@@ -25,6 +25,7 @@ class LiftEntry(models.Model):
 	workouts = models.ForeignKey(Workout)
 	excercise = models.ForeignKey(Excercise)
 	weight = models.FloatField()
+	units  = models.CharField(max_length=10)
 	sets = models.IntegerField()
 	reps = models.IntegerField()
 	note = models.TextField(blank=True)

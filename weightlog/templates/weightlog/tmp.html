@@ -14,7 +14,13 @@
 	{% for l in y %}
 	<dd class="e">
 		{% if l %}
-		{{ l }}  {{ l.weight }}x{{ l.sets }}x{{ l.reps }}
+		{{ l }}  
+		<div class="e">
+			<span class="same"> {{ l.weight|floatformat }}x{{ l.sets }}x{{ l.reps }} </span>
+			{% if l.note %}
+			- {{ l.note }}
+			{% endif %}
+		</div>
 		{% else %}
 		<br/> 
 		{% endif %}

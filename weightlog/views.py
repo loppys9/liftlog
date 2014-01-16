@@ -1,5 +1,12 @@
 from django.shortcuts import render, get_object_or_404
 from weightlog.models import Workout, Excercise
+from django.http import HttpResponse
+
+
+def workout(request):
+	"""Workout page"""
+	context = {}
+	return render(request, 'weightlog/newworkout.html', context)
 
 def index(request):
 	w = Workout.objects.all()

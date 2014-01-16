@@ -1,0 +1,62 @@
+{% extends "weightlog/base.html" %}
+{% load staticfiles %}
+
+{% block extracss %}
+	<link rel="stylesheet" type="text/css" href="{% static "weightlog/nw.css" %}" />
+{% endblock %}
+
+{% block title %}Add New Workout{% endblock %}
+
+{% block content %}
+<div class="main">
+    <span class="ll"></span><!--
+    --><input type="text" placeholder="New Workout" /><!--
+    --><span class="ll"></span>
+    <input type="date" />
+	<ul>
+		<li>
+            <div>
+                Warm Up
+                <div>
+                    <input type="text" placeholder="Excersice" />
+                    <textarea placeholder="Notes" maxlength="250">
+                    </textarea>
+                    <div>
+                        <input type="text" placeholder="value"/>
+                    </div>
+                </div>
+            </div>
+		</li>
+		<li>
+            <div>
+                Lifts
+                <div>
+                    <input type="text" placeholder="Excersice" />
+                    <textarea placeholder="Notes" maxlength="250">
+                    </textarea>
+                    <div>
+                        Weight:
+                        <input type="number"/>
+                        Sets:
+                        <input type="number"/>
+                        Reps:
+                        <input type="number"/>
+                    </div>
+                </div>
+            </div>
+		</li>
+		<li>
+            <div>
+                Stretching
+                <div>
+                    <input type="text" placeholder="Stretch" />
+                    <div>
+                        <input type="text" placeholder="duration"/>
+                    </div>
+                </div>
+            </div>
+		</li>
+	</ul>
+</div>
+{% endblock %}
+
