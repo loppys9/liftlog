@@ -5,7 +5,10 @@
 		<title>{% block title %}{% endblock %}</title>
 		<link rel="stylesheet" type="text/css" href="{% static "weightlog/reset.css" %}" />
 		<link rel="stylesheet" type="text/css" href="{% static "weightlog/base.css" %}" />
+        <!--script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script-->
+        <script src="{% static "weightlog/jquery.min.js" %}"></script>
 		{% block extracss %}{% endblock %}
+        {% block extrascripts %}{% endblock %}
 	</head>
 	<body>
 		{% block content %}{% endblock %}

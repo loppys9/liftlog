@@ -3,24 +3,77 @@
     margin-right: 2%;
 }
 
+.ra {
+    text-align:right;
+}
+
+textarea {
+    #resize: none;
+    border: 2px solid #aaa;
+}
+
+input[type="date"]:focus {
+    outline: none;
+    border-color: #0FD61C;
+}
+
+input[type="date"] {
+    margin: 0px;
+    padding-left: 15px;
+    padding-right: 15px;
+    border: 2px solid #aaa;
+}
+
+input[type="number"] {
+    width: 4em;
+}
+
 input[type="text"] {
     margin: 0px;
     padding-left: 15px;
+    padding-right: 15px;
     border: none;
     border-bottom: 2px solid  #aaa;
     vertical-align: bottom;
 }
 
+.textfocuscolor {
+    border-left: 1px solid #0FD61C;
+    border-right: 1px solid #0FD61C;
+}
+
+.textcolor {
+    border-left: 1px solid #aaa;
+    border-right: 1px solid #aaa;
+}
+
 input[type="text"]:focus {
-    border-color: blue;
     outline: none;
+    border-color: #0FD61C;
+}
+
+.insec {
+    margin-top: 15px;
+    margin-right: 5%;
+    margin-left: 5%;
+}
+
+.secval {
+    margin-bottom: 15px;
 }
 
 .ll {
     display: inline-block;
     width: 0;
     height: 5px;
-    border-left: 1px solid #aaa;
-    border-right: 1px solid #aaa;
     vertical-align: bottom;
 }
+
+.spacing {
+    margin-left: 3em;
+}
+
+.wsr {
+    margin-right: 15px;
+}
+

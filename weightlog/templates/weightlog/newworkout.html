@@ -5,43 +5,65 @@
 	<link rel="stylesheet" type="text/css" href="{% static "weightlog/nw.css" %}" />
 {% endblock %}
 
+{% block extrascripts %}
+    <script src="{% static "weightlog/in.js" %}"></script>
+    <script>
+        $(document).ready(function() {
+            fancy_text();
+            set_date();
+        });
+
+    </script>
+{% endblock %}
+
 {% block title %}Add New Workout{% endblock %}
 
 {% block content %}
 <div class="main">
-    <span class="ll"></span><!--
-    --><input type="text" placeholder="New Workout" /><!--
-    --><span class="ll"></span>
-    <input type="date" />
+    <div class="intext">
+        <input type="text" name="name1" placeholder="New Workout" />
+    </div>
+    <div class="ra">
+        <input type="date" id="date"/>
+    </div>
 	<ul>
 		<li>
             <div>
                 Warm Up
-                <div>
-                    <input type="text" placeholder="Excersice" />
+                <div class="insec">
+                    <div class="secval">
+                        <input type="text" name='ex1' placeholder="Excersice"/>
+                        <span class="spacing"></span>
+                        <input type="text" name='val' placeholder="Value"/>
+                    </div>
                     <textarea placeholder="Notes" maxlength="250">
                     </textarea>
-                    <div>
-                        <input type="text" placeholder="value"/>
-                    </div>
                 </div>
             </div>
 		</li>
 		<li>
             <div>
                 Lifts
-                <div>
-                    <input type="text" placeholder="Excersice" />
+                <div class="insec">
+                    <div class='secval'>
+                        <div class="secval">
+                            <input type="text" name='ex2' placeholder="Excersice" />
+                        </div>
+                        <span class="wsr">
+                            Weight:
+                            <input type="number"/>
+                        </span>
+                        <span class="wsr">
+                            Sets:
+                            <input type="number"/>
+                        </span>
+                        <span class="wsr">
+                            Reps:
+                            <input type="number"/>
+                        </span>
+                    </div>
                     <textarea placeholder="Notes" maxlength="250">
                     </textarea>
-                    <div>
-                        Weight:
-                        <input type="number"/>
-                        Sets:
-                        <input type="number"/>
-                        Reps:
-                        <input type="number"/>
-                    </div>
                 </div>
             </div>
 		</li>
@@ -49,9 +71,9 @@
             <div>
                 Stretching
                 <div>
-                    <input type="text" placeholder="Stretch" />
+                    <input type="text" name='str'  placeholder="Stretch" />
                     <div>
-                        <input type="text" placeholder="duration"/>
+                        <input type="text" name='dur' placeholder="Duration"/>
                     </div>
                 </div>
             </div>
