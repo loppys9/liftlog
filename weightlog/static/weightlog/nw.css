@@ -8,13 +8,17 @@
 }
 
 textarea {
-    #resize: none;
-    border: 2px solid #aaa;
+    resize: none;
+    border: none;
+    border-top: 2px solid #aaa;
+    border-left: 2px solid #aaa;
+    width: 300px;
 }
 
 input[type="date"]:focus {
     outline: none;
     border-color: #0FD61C;
+    #border-color: #91d695;
 }
 
 input[type="date"] {
@@ -40,6 +44,8 @@ input[type="text"] {
 .textfocuscolor {
     border-left: 1px solid #0FD61C;
     border-right: 1px solid #0FD61C;
+    #border-left: 1px solid #91d695;
+    #border-right: 1px solid #91d695;
 }
 
 .textcolor {
@@ -50,6 +56,7 @@ input[type="text"] {
 input[type="text"]:focus {
     outline: none;
     border-color: #0FD61C;
+    #border-color: #91d695;
 }
 
 .insec {
@@ -59,7 +66,7 @@ input[type="text"]:focus {
 }
 
 .secval {
-    margin-bottom: 15px;
+    margin-bottom: 1em;
 }
 
 .ll {
@@ -70,10 +77,19 @@ input[type="text"]:focus {
 }
 
 .spacing {
-    margin-left: 3em;
+    margin-left: 2em;
 }
 
 .wsr {
     margin-right: 15px;
 }
 
+.section {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+}
+
+.inset {
+    margin-right: 2%;
+    margin-left: 2%;
+}

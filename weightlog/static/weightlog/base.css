@@ -56,3 +56,8 @@ input {
     color: #444;
     font: 1em arial,sans-serif;
 }
+
+textarea {
+    color: #444;
+    font: 0.8em arial,sans-serif;
+}
