@@ -10,26 +10,55 @@
 textarea {
     resize: none;
     border: none;
-    border-top: 2px solid #aaa;
-    border-left: 2px solid #aaa;
+    #border-top: 2px solid #aeaeae;
+    #border-left: 2px solid #aeaeae;
+    border-top: 2px solid #e1e1e1;
+    border-left: 2px solid #e1e1e1;
     width: 300px;
+}
+
+textarea:focus {
+    outline: none;
+    border: 2px solid #d1d1d1;
+    width: 400px;
+    height: 4em;
+}
+
+textarea:focus::-webkit-input-placeholder { 
+    color: #d1d1d1;
+}
+textarea:focus::-moz-placeholder {
+    color: #d1d1d1;
+}
+textarea:focus:-moz-placeholder {
+    color: #d1d1d1;
+}
+textarea:focus:-ms-input-placeholder {
+    color: #d1d1d1;
 }
 
 input[type="date"]:focus {
     outline: none;
-    border-color: #0FD61C;
-    #border-color: #91d695;
+    #border-color: #0FD61C;
+    border-color: #2bd04a;
 }
 
 input[type="date"] {
     margin: 0px;
     padding-left: 15px;
     padding-right: 15px;
-    border: 2px solid #aaa;
+    #border: 2px solid #aeaeae;
+    border: 2px solid #d1d1d1;
+}
+
+input[type="number"]:focus {
+    outline: none;
+    border: 2px solid #2bd04a;
 }
 
 input[type="number"] {
     width: 4em;
+    border: 2px solid #d1d1d1;
 }
 
 input[type="text"] {
@@ -37,26 +66,29 @@ input[type="text"] {
     padding-left: 15px;
     padding-right: 15px;
     border: none;
-    border-bottom: 2px solid  #aaa;
+    #border-bottom: 2px solid  #aeaeae;
+    border-bottom: 2px solid  #d1d1d1;
     vertical-align: bottom;
 }
 
 .textfocuscolor {
-    border-left: 1px solid #0FD61C;
-    border-right: 1px solid #0FD61C;
-    #border-left: 1px solid #91d695;
-    #border-right: 1px solid #91d695;
+    #border-left: 1px solid #0FD61C;
+    #border-right: 1px solid #0FD61C;
+    border-left: 1px solid #2bd04a;
+    border-right: 1px solid #2bd04a;
 }
 
 .textcolor {
-    border-left: 1px solid #aaa;
-    border-right: 1px solid #aaa;
+    #border-left: 1px solid #aeaeae;
+    #border-right: 1px solid #aeaeae;
+    border-left: 1px solid #d1d1d1;
+    border-right: 1px solid #d1d1d1;
 }
 
 input[type="text"]:focus {
     outline: none;
-    border-color: #0FD61C;
-    #border-color: #91d695;
+    #border-color: #0FD61C;
+    border-color: #2bd04a;
 }
 
 .insec {
@@ -66,7 +98,7 @@ input[type="text"]:focus {
 }
 
 .secval {
-    margin-bottom: 1em;
+    margin-bottom: 1.1em;
 }
 
 .ll {

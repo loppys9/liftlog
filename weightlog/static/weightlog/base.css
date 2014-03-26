@@ -48,16 +48,36 @@ table {
 }
 
 body {
-	color: #444;
+	#color: #444;
+	color: #2e2e2e;
 	font: 1.1em arial,sans-serif;
 }
 
+body::selection {
+    background-color: #82e894;
+}
+
 input {
-    color: #444;
+    #color: #444;
+	color: #2e2e2e;
     font: 1em arial,sans-serif;
 }
 
 textarea {
-    color: #444;
+    #color: #444;
+	color: #2e2e2e;
     font: 0.8em arial,sans-serif;
+}
+
+textarea::-webkit-input-placeholder { 
+    color: #d9d9d9;
+}
+textarea::-moz-placeholder {
+    color: #d9d9d9;
+}
+textarea:-moz-placeholder {
+    color: #d9d9d9;
+}
+textarea:-ms-input-placeholder {
+    color: #d9d9d9;
 }
