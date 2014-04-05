@@ -11,6 +11,25 @@
         {% block extrascripts %}{% endblock %}
 	</head>
 	<body>
-		{% block content %}{% endblock %}
+        <div id="ldiv">
+            <a href="workout" id="logo">Log your lift</a>
+        </div>
+        <section id="menu">
+            <nav id="menu-nav">
+                <ul>
+                    <li>
+                        <a href="workout">Home</a>
+                    </li>
+                    <li>
+                        <a href="workout">Monthly</a>
+                    </li>
+                </ul>
+            </nav>
+        </section>
+        <div id="back">
+            <div id="container">
+            {% block content %}{% endblock %}
+            </div>
+        </div>
 	</body>
 </html>
