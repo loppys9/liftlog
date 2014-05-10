@@ -12,14 +12,14 @@ textarea {
     border: none;
     #border-top: 2px solid #aeaeae;
     #border-left: 2px solid #aeaeae;
-    border-top: 2px solid #e1e1e1;
-    border-left: 2px solid #e1e1e1;
+    border-top: 1px solid #d1d1d1;
+    border-left: 1px solid #d1d1d1;
     width: 300px;
 }
 
 textarea:focus {
     outline: none;
-    border: 2px solid #d1d1d1;
+    border: 1px solid #d1d1d1;
     width: 400px;
     height: 4em;
 }
@@ -47,18 +47,19 @@ input[type="date"] {
     margin: 0px;
     padding-left: 15px;
     padding-right: 15px;
-    #border: 2px solid #aeaeae;
-    border: 2px solid #d1d1d1;
+    #border: 1px solid #aeaeae;
+    border: 1px solid #d1d1d1;
 }
 
 input[type="number"]:focus {
     outline: none;
-    border: 2px solid #2bd04a;
+    border: 1px solid #2bd04a;
+    #border: 2px solid #5ee876;
 }
 
 input[type="number"] {
     width: 4em;
-    border: 2px solid #d1d1d1;
+    border: 1px solid #d1d1d1;
 }
 
 input[type="text"] {
@@ -67,28 +68,28 @@ input[type="text"] {
     padding-right: 15px;
     border: none;
     #border-bottom: 2px solid  #aeaeae;
-    border-bottom: 2px solid  #d1d1d1;
+    border-bottom: 1px solid  #d1d1d1;
     vertical-align: bottom;
 }
 
 .textfocuscolor {
     #border-left: 1px solid #0FD61C;
     #border-right: 1px solid #0FD61C;
-    border-left: 1px solid #2bd04a;
+    #border-left: 1px solid #2bd04a;
     border-right: 1px solid #2bd04a;
 }
 
 .textcolor {
     #border-left: 1px solid #aeaeae;
     #border-right: 1px solid #aeaeae;
-    border-left: 1px solid #d1d1d1;
+    #border-left: 1px solid #d1d1d1;
     border-right: 1px solid #d1d1d1;
 }
 
 input[type="text"]:focus {
     outline: none;
-    #border-color: #0FD61C;
     border-color: #2bd04a;
+    #border-color: #5ee876;
 }
 
 .insec {
@@ -109,7 +110,8 @@ input[type="text"]:focus {
 }
 
 .spacing {
-    margin-left: 2em;
+    #margin-left: 2em;
+    margin-left: 10%;
 }
 
 .wsr {
