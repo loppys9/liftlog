@@ -1,13 +1,20 @@
 from django.shortcuts import render, get_object_or_404
 from weightlog.models import Workout, Excercise
 from django.http import HttpResponse
+from django.contrib.auth.decorators import login_required
+import logging
+
+logger = logging.getLogger(__name__)
 
 
+@login_required
 def workout(request):
-	"""Workout page"""
-	context = {}
-	return render(request, 'weightlog/newworkout.html', context)
+    """Workout page"""
+    context = {}
+    return render(request, 'weightlog/newworkout.jade', context)
+    #return render(request, 'weightlog/newworkout.html', context)
 
+@login_required
 def index(request):
 	w = Workout.objects.all()
 	l = []

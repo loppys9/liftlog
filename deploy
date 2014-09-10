@@ -1,0 +1,12 @@
+pip install django
+pip install python mimeparse
+pip install django-tastypie
+pip3 install py-bcrypt
+ln -s $(Python-directory)/tastypie $(liftlog)/tastypie
+
+user: shane, pwd: shane
+
+group that need adding:
+    members
+    coaches
+

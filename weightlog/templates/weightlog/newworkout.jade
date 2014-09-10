@@ -1,0 +1,18 @@
+extends weightlog/base
+-load staticfiles
+
+block extrascripts
+    script(src='{% static "weightlog/in.js" %}')
+    //script(type='text/javascript').
+    script().
+        $(document).ready(function() {
+            set_date();
+            $("#submit").click( function() {add_workout();} );
+        });
+
+block content
+    #main
+        input(type="text", name="name1", placeholder="New Workout")#wo_name
+        input(type="date")#wo_date
+        input(type="text", name="description", placeholder="Description")#wo_descr
+        input(type="button", value="submit")#submit

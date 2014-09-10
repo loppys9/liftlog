@@ -87,10 +87,18 @@ SECRET_KEY = 'd2^3ram$@uzqd@^tipg(g9vq=236$&ke^6qcw_lfb4e!a5ssd^'
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
-    'django.template.loaders.filesystem.Loader',
+#    ('django.template.loaders.cached.Loader',(
+#        'django.template.loaders.filesystem.Loader',
+#    'django.template.loaders.app_directories.Loader',
+#    )),
+    ('pyjade.ext.django.Loader',(
+        'django.template.loaders.filesystem.Loader',
     'django.template.loaders.app_directories.Loader',
+    )),
 #     'django.template.loaders.eggs.Loader',
 )
+
+TEST_RUNNER = 'django.test.runner.DiscoverRunner'
 
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
@@ -127,6 +135,18 @@ INSTALLED_APPS = (
     # 'django.contrib.admindocs',
     'weightlog',
 )
+
+PASSWORD_HASHERS = (
+    'django.contrib.auth.hashers.BCryptPasswordHasher',
+    'django.contrib.auth.hashers.PBKDF2PasswordHasher',
+    'django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher',
+    'django.contrib.auth.hashers.SHA1PasswordHasher',
+    'django.contrib.auth.hashers.MD5PasswordHasher',
+    'django.contrib.auth.hashers.CryptPasswordHasher',
+)
+
+DEBUG_PROPAGATE_EXCEPTIONS = True
+TASTYPIE_FULL_DEBUG = True
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to

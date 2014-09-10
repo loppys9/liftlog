@@ -1,0 +1,10 @@
+-load staticfiles
+
+doctype html
+html(lang="en")
+    head
+        script(src='{% static "weightlog/jquery.min.js" %}')
+        block extracss
+        block extrascripts
+    body
+        block content

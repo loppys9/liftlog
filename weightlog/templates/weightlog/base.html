@@ -11,8 +11,13 @@
         {% block extrascripts %}{% endblock %}
 	</head>
 	<body>
-        <div id="ldiv">
-            <a href="workout" id="logo">Log your lift</a>
+        <div id="main-hdr">
+            <div id="ldiv">
+                <a href="workout" id="logo">Log your lift</a>
+                <div id="usrinf">
+                {{user.username}}
+                </div>
+            </div>
         </div>
         <section id="menu">
             <nav id="menu-nav">
