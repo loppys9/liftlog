@@ -1,13 +1,16 @@
 from django.conf.urls import patterns, include, url
 from tastypie.api import Api
-from api.resources import WorkoutResource
+from api.resources import WorkoutResource, ExcerciseResource, ExcerciseSearchResource, LiftEntryResource
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
 admin.autodiscover()
 
 v1_api = Api(api_name='v1')
+v1_api.register(LiftEntryResource())
 v1_api.register(WorkoutResource())
+v1_api.register(ExcerciseResource())
+v1_api.register(ExcerciseSearchResource())
 
 urlpatterns = patterns('',
     # Examples:

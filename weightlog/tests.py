@@ -8,7 +8,7 @@ Replace this with more appropriate tests for your application.
 from django.db import IntegrityError
 from django.test import TestCase
 from django.contrib.auth.models import User
-from weightlog.models import Workout
+from weightlog.models import Workout, Excercise
 from datetime import datetime
 
 class WorkoutModelTest(TestCase):
@@ -32,4 +32,20 @@ class WorkoutModelTest(TestCase):
         n = Workout(user_id=self.user.id, name="one two three", date=str(datetime.now())[:10])
         n.save()
         self.assertNotEqual(n,None)
+
+class ExcerciseModelTest(TestCase):
+    def setUp(self):
+        self.username = 'testy'
+        self.password = 'testerson'
+        self.user = User.objects.create_user(self.username, 'testy@logyourlift.com', self.password)
+
+    def test_excercise_without_user(self):
+        n = None
+        try:
+            n = Excercise(name="blah", descr="oops")
+            n.save()
+        except IntegrityError:
+            self.assertEqual(False, True)
+        else:
+            self.assertEqual(True, True)
 

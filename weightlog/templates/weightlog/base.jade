@@ -1,9 +1,16 @@
 -load staticfiles
 
-doctype html
+doctype strict
 html(lang="en")
     head
-        script(src='{% static "weightlog/jquery.min.js" %}')
+        script(src='{% static "weightlog/jquery-2.1.1.js" %}')
+        //script(src='{% static "weightlog/jquery.min.js" %}')
+        script(src='{% static "weightlog/jquery-ui.min.js" %}')
+        //link(rel='stylesheet' type='text/css' href='{% static "weightlog/reset.css" %}')
+        link(rel='stylesheet', type='text/css', href='{% static "weightlog/reset.css" %}')
+        link(rel='stylesheet', type='text/css', href='{% static "weightlog/base.css" %}')
+        //Get rid of this, add styles for the specific site.
+        link(rel='stylesheet', type='text/css', href='{% static "weightlog/jquery-ui.css" %}')
         block extracss
         block extrascripts
     body

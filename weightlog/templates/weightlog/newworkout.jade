@@ -7,7 +7,14 @@ block extrascripts
     script().
         $(document).ready(function() {
             set_date();
-            $("#submit").click( function() {add_workout();} );
+            $("#submit").click( function() {
+                new_lift();
+                /*add_workout();
+                add_lift_entry();*/
+            });
+            $(".excer").each( function() {
+                add_autocomplete(this.id);
+            });
         });
 
 block content
@@ -15,4 +22,21 @@ block content
         input(type="text", name="name1", placeholder="New Workout")#wo_name
         input(type="date")#wo_date
         input(type="text", name="description", placeholder="Description")#wo_descr
-        input(type="button", value="submit")#submit
+    #lifts
+        p Lifts
+        #entry0
+            input(type="text", name="excer", placeholder="Excercise")#excer0.excer
+            input(type="hidden")#e0
+            .lift_entry
+                    span Weight
+                        input(type="number")#w0
+                        select#u0
+                            option(value="lbs") lbs
+                            option(value="kg") kg
+                    span Sets
+                        input(type="number")#s0
+                    span Reps
+                        input(type="number")#r0
+                    textarea(placeholder="Notes", maxlength=250)#n0
+    input(type="button", value="submit")#submit
+
