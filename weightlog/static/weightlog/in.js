@@ -5,12 +5,13 @@ var exind = 0;
 var cur_table = 0;
 
 /*Javascript sucks. heres a lift entry object*/
-function LiftEntry (eid, wid, rid, sid)
+function LiftEntry (eid, wid, rid, sid, nid)
 {
     this.eid = '#' + eid;
     this.wid = '#' + wid;
     this.rid = '#' + rid;
     this.sid = '#' + sid;
+    this.nid = '#' + nid;
     this.complete = false;
 }
 
@@ -30,9 +31,9 @@ LiftEntry.prototype.check_complete = function () {
     console.log("complete? " + this.complete);
 };
 
-var liftEntries = [];
-
 /* Here is the end of the lift entry object */
+
+var liftEntries = [];
 
 /*function fancy_text()
 {
@@ -107,6 +108,7 @@ function add_lift_entry(entry) {
                 "reps": $(entry.rid).val(),
                 "workout": w_url + workout_id + '/',
                 "excercise": e_url + $(entry.eid).val() + '/',
+                "note": $(entry.nid).val(),
             });
 
     $.ajax({
@@ -199,12 +201,14 @@ function append_excercise() {
       "<td><input type='number' id='e" + exind + "w0' onfocus='set_table_loc(" + exind + ")'></td>" +
       "<td><input type='number' id='e" + exind + "r0' onfocus='set_table_loc(" + exind + ")'></td>" +
       "<td><input type='number' id='e" + exind + "s0' onfocus='set_table_loc(" + exind + ")'></td>" +
+      "<td> <input type='textarea' id='e" + exind + "n0' onfocus='set_table_loc(0)' placeholder='Notes'> </td>" +
     "</tr>" + 
     "<tr id='e" + exind + "ent1'>" +
       "<td></td>" +
       "<td><input type='number' id='e" + exind + "w1' onfocus='set_table_loc(" + exind + ")'></td>" +
       "<td><input type='number' id='e" + exind + "r1' onfocus='set_table_loc(" + exind + ")'></td>" +
       "<td><input type='number' id='e" + exind + "s1' onfocus='set_table_loc(" + exind + ")'></td>" +
+      "<td> <input type='textarea' id='e" + exind + "n1' onfocus='set_table_loc(0)' placeholder='Notes'> </td>" +
     "</tr>" +
   "</tbody>" +
 "</table> ";
@@ -221,6 +225,7 @@ function append_lift_entry() {
       "<td><input type='number' id='e" + cur_table + "w" + exind + "' onfocus='set_table_loc(" + exind + ")'></td>" +
       "<td><input type='number' id='e" + cur_table + "r" + exind + "' onfocus='set_table_loc(" + exind + ")'></td>" +
       "<td><input type='number' id='e" + cur_table + "s" + exind + "' onfocus='set_table_loc(" + exind + ")'></td>" +
+      "<td> <input type='textarea' id='e" + cur_table + "n" + exind + "' onfocus='set_table_loc(0)' placeholder='Notes'> </td>" +
     "</tr>";
     console.log(erow);
     $("#e" + cur_table).append(erow);
@@ -257,8 +262,8 @@ function set_arrow_keys() {
 
 function init_workouts() {
     liftEntries[0] = []
-    liftEntries[0].push(new LiftEntry('e0', 'e0w0', 'e0r0', 'e0s0'));
-    liftEntries[0].push(new LiftEntry('e0', 'e0w1', 'e0r1', 'e0s1'));
+    liftEntries[0].push(new LiftEntry('e0', 'e0w0', 'e0r0', 'e0s0', 'e0n0'));
+    liftEntries[0].push(new LiftEntry('e0', 'e0w1', 'e0r1', 'e0s1', 'e0n1'));
     console.log('hola folks: %d', liftEntries.length);
     console.log('and: %d', liftEntries[0].length);
 }
