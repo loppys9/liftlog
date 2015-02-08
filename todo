@@ -1,0 +1,12 @@
+- add a complete new workout with one excersise (using submit)
+- add a new weight, set, reps when previous w/s/r is full.
+- add excersise with as many w/s/r's as full.
+- add a new excersise once a previous w/s/r is added (using submit).
+- add the new excersise automatically.
+- add all of the excersise on the page (using submit).
+- auto add excersises as they are finished (no submit).
+- Allow typing in the excersise without auto-complete if it matches.
+
+- using curl add a bunch of workouts to the user shane.
+
+- display the most recent workout.

@@ -123,7 +123,7 @@ class LiftEntryResource(ModelResource):
         authentication = MultiAuthentication(SessionAuthentication(), BasicAuthentication())
         authorization = LiftEntryAuthorization()
         validation = LiftEntryValidation()
-        #always_return_data = True
+        always_return_data = True
 
     def obj_create(self, bundle, **kwargs):
         return super(LiftEntryResource, self).obj_create(bundle, user=bundle.request.user)

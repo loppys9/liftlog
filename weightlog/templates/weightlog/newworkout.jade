@@ -4,17 +4,18 @@ extends weightlog/base
 block extrascripts
     script(src='{% static "weightlog/in.js" %}')
     //script(type='text/javascript').
-    script().
+    script()
         $(document).ready(function() {
             set_date();
+            console.log("excer: %s, w: %s\n", $('#excer0').val(), $('#e0w0').val() == '');
+            //set_arrow_keys();
             $("#submit").click( function() {
-                new_lift();
-                /*add_workout();
-                add_lift_entry();*/
+                add_workout();
             });
             $(".excer").each( function() {
                 add_autocomplete(this.id);
             });
+            init_workouts();
         });
 
 block content
@@ -24,19 +25,31 @@ block content
         input(type="text", name="description", placeholder="Description")#wo_descr
     #lifts
         p Lifts
-        #entry0
-            input(type="text", name="excer", placeholder="Excercise")#excer0.excer
-            input(type="hidden")#e0
-            .lift_entry
-                    span Weight
-                        input(type="number")#w0
-                        select#u0
-                            option(value="lbs") lbs
-                            option(value="kg") kg
-                    span Sets
-                        input(type="number")#s0
-                    span Reps
-                        input(type="number")#r0
-                    textarea(placeholder="Notes", maxlength=250)#n0
-    input(type="button", value="submit")#submit
+                        
+        table#exc0
+            thead
+                th
+                th Weight
+                th Reps
+                th Sets
+            tbody#e0
+                tr#e0ent0
+                    td
+                        input(type='text', name='excer', placeholder='excercise', onfocus="set_table_loc(0,0)")#excer0.excer
+                        input(type='hidden', onfocus="set_table_loc(0)")#e0
+                    td
+                        input(type='number', onfocus="set_table_loc(0)")#e0w0
+                    td
+                        input(type='number', onfocus="set_table_loc(0)")#e0r0
+                    td
+                        input(type='number', onfocus="set_table_loc(0)")#e0s0
+                tr#e0ent1
+                    td
+                    td
+                        input(type='number', onfocus="set_table_loc(0)")#e0w1
+                    td
+                        input(type='number', onfocus="set_table_loc(0)")#e0r1
+                    td
+                        input(type='number', onfocus="set_table_loc(0)")#e0s1
+    input(type='button', value='submit')#submit
 
