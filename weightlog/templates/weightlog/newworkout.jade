@@ -9,13 +9,16 @@ block extrascripts
             set_date();
             console.log("excer: %s, w: %s\n", $('#excer0').val(), $('#e0w0').val() == '');
             //set_arrow_keys();
+            init_workouts();
+            $("#e0 tr").focusout(function() {
+                console.log("yea " + this.id)
+            });
             $("#submit").click( function() {
                 add_workout();
             });
             $(".excer").each( function() {
                 add_autocomplete(this.id);
             });
-            init_workouts();
         });
 
 block content
@@ -35,25 +38,25 @@ block content
             tbody#e0
                 tr#e0ent0
                     td
-                        input(type='text', name='excer', placeholder='excercise', onfocus="set_table_loc(0,0)")#excer0.excer
-                        input(type='hidden', onfocus="set_table_loc(0)")#e0
+                        input(type='text', name='excer', placeholder='excercise')#excer0.excer
+                        input(type='hidden')#e0
                     td
-                        input(type='number', onfocus="set_table_loc(0)")#e0w0
+                        input(type='number')#e0w0
                     td
-                        input(type='number', onfocus="set_table_loc(0)")#e0r0
+                        input(type='number')#e0r0
                     td
-                        input(type='number', onfocus="set_table_loc(0)")#e0s0
+                        input(type='number')#e0s0
                     td
-                        input(type='textarea', onfocus="set_table_loc(0)", placeholder='Notes')#e0n0
+                        input(type='textarea', , placeholder='Notes')#e0n0
                 tr#e0ent1
                     td
                     td
-                        input(type='number', onfocus="set_table_loc(0)")#e0w1
+                        input(type='number')#e0w1
                     td
-                        input(type='number', onfocus="set_table_loc(0)")#e0r1
+                        input(type='number')#e0r1
                     td
-                        input(type='number', onfocus="set_table_loc(0)")#e0s1
+                        input(type='number')#e0s1
                     td
-                        input(type='textarea', onfocus="set_table_loc(0)", placeholder='Notes')#e0n1
+                        input(type='textarea', , placeholder='Notes')#e0n1
     input(type='button', value='submit')#submit
 

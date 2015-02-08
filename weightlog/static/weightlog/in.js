@@ -33,7 +33,7 @@ LiftEntry.prototype.check_complete = function () {
 
 /* Here is the end of the lift entry object */
 
-var liftEntries = [];
+//var liftEntries = [];
 
 /*function fancy_text()
 {
@@ -140,13 +140,14 @@ function add_workout() {
         async: false
     });
 
-    for (var i = 0; i < liftEntries.length; i++) {
-        for (var j = 0; j < liftEntries[i].length; j++) {
-            if (liftEntries[i][j].check_complete()) {
-                add_lift_entry(liftEntries[i][j]);
+    $('table').each( function() {
+        entries = jQuery.data(this, "entries");
+        for (var i = 0; i < entries.length; i++) {
+            if (entries[i].check_complete()) {
+                add_lift_entry(entries[i]);
             }
         }
-    }
+    });
 }
 
 function add_autocomplete(id) {
@@ -196,19 +197,19 @@ function append_excercise() {
   "<thead><tr><th></th><th>Weight</th><th>Reps</th><th>Sets</th></tr></thead>" +
   "<tbody id='e0'>" +
     "<tr id='e" + exind + "ent0'>" +
-      "<td><input type='text' name='excer' placeholder='Excercise' id='excer" + exind + "' class='excer ui-autocomplete-input' autocomplete='off' onfocus='set_table_loc(" + exind + ",0)'" + 
+      "<td><input type='text' name='excer' placeholder='Excercise' id='excer" + exind + "' class='excer ui-autocomplete-input' autocomplete='off'" + 
         "<input type='hidden' id='e" + exind + "'></td>" + 
-      "<td><input type='number' id='e" + exind + "w0' onfocus='set_table_loc(" + exind + ")'></td>" +
-      "<td><input type='number' id='e" + exind + "r0' onfocus='set_table_loc(" + exind + ")'></td>" +
-      "<td><input type='number' id='e" + exind + "s0' onfocus='set_table_loc(" + exind + ")'></td>" +
-      "<td> <input type='textarea' id='e" + exind + "n0' onfocus='set_table_loc(0)' placeholder='Notes'> </td>" +
+      "<td><input type='number' id='e" + exind + "w0'></td>" +
+      "<td><input type='number' id='e" + exind + "r0'></td>" +
+      "<td><input type='number' id='e" + exind + "s0'></td>" +
+      "<td> <input type='textarea' id='e" + exind + "n0' placeholder='Notes'> </td>" +
     "</tr>" + 
     "<tr id='e" + exind + "ent1'>" +
       "<td></td>" +
-      "<td><input type='number' id='e" + exind + "w1' onfocus='set_table_loc(" + exind + ")'></td>" +
-      "<td><input type='number' id='e" + exind + "r1' onfocus='set_table_loc(" + exind + ")'></td>" +
-      "<td><input type='number' id='e" + exind + "s1' onfocus='set_table_loc(" + exind + ")'></td>" +
-      "<td> <input type='textarea' id='e" + exind + "n1' onfocus='set_table_loc(0)' placeholder='Notes'> </td>" +
+      "<td><input type='number' id='e" + exind + "w1'></td>" +
+      "<td><input type='number' id='e" + exind + "r1'></td>" +
+      "<td><input type='number' id='e" + exind + "s1'></td>" +
+      "<td> <input type='textarea' id='e" + exind + "n1' placeholder='Notes'> </td>" +
     "</tr>" +
   "</tbody>" +
 "</table> ";
@@ -222,10 +223,10 @@ function append_lift_entry() {
 
     var erow = "<tr id='e" + cur_table + "ent" + exind + "'>" +
       "<td></td>" +
-      "<td><input type='number' id='e" + cur_table + "w" + exind + "' onfocus='set_table_loc(" + exind + ")'></td>" +
-      "<td><input type='number' id='e" + cur_table + "r" + exind + "' onfocus='set_table_loc(" + exind + ")'></td>" +
-      "<td><input type='number' id='e" + cur_table + "s" + exind + "' onfocus='set_table_loc(" + exind + ")'></td>" +
-      "<td> <input type='textarea' id='e" + cur_table + "n" + exind + "' onfocus='set_table_loc(0)' placeholder='Notes'> </td>" +
+      "<td><input type='number' id='e" + cur_table + "w" + exind + "' ></td>" +
+      "<td><input type='number' id='e" + cur_table + "r" + exind + "' ></td>" +
+      "<td><input type='number' id='e" + cur_table + "s" + exind + "' ></td>" +
+      "<td> <input type='textarea' id='e" + cur_table + "n" + exind + "' placeholder='Notes'> </td>" +
     "</tr>";
     console.log(erow);
     $("#e" + cur_table).append(erow);
@@ -261,10 +262,14 @@ function set_arrow_keys() {
 }
 
 function init_workouts() {
-    liftEntries[0] = []
-    liftEntries[0].push(new LiftEntry('e0', 'e0w0', 'e0r0', 'e0s0', 'e0n0'));
-    liftEntries[0].push(new LiftEntry('e0', 'e0w1', 'e0r1', 'e0s1', 'e0n1'));
-    console.log('hola folks: %d', liftEntries.length);
-    console.log('and: %d', liftEntries[0].length);
+    var i = 0;
+    le = [];
+    le.push(new LiftEntry('e0', 'e0w0', 'e0r0', 'e0s0', 'e0n0'));
+    le.push(new LiftEntry('e0', 'e0w1', 'e0r1', 'e0s1', 'e0n1'));
+    $('#e0 tr').each( function() {
+        jQuery.data(this, "entry", le[i]);
+        i++;
+    });
+    $('#exc0').data("entries", le);
 }
 
