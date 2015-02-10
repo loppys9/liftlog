@@ -10,11 +10,12 @@ block extrascripts
             console.log("excer: %s, w: %s\n", $('#excer0').val(), $('#e0w0').val() == '');
             //set_arrow_keys();
             init_workouts();
-            $("#e0 tr").focusout(function() {
-                console.log("yea " + this.id)
+            $("#e0 tr").focusin(function() {
+                update_entries(this);
             });
             $("#submit").click( function() {
-                add_workout();
+                //add_workout();
+                append_excercise();
             });
             $(".excer").each( function() {
                 add_autocomplete(this.id);
@@ -47,7 +48,7 @@ block content
                     td
                         input(type='number')#e0s0
                     td
-                        input(type='textarea', , placeholder='Notes')#e0n0
+                        input(type='textarea', placeholder='Notes')#e0n0
                 tr#e0ent1
                     td
                     td
@@ -57,6 +58,6 @@ block content
                     td
                         input(type='number')#e0s1
                     td
-                        input(type='textarea', , placeholder='Notes')#e0n1
+                        input(type='textarea', placeholder='Notes')#e0n1
     input(type='button', value='submit')#submit
 

@@ -2,7 +2,8 @@
 var workout_id = "-1";
 var eind = 1;
 var exind = 0;
-var cur_table = 0;
+var pre_table = null;
+var num_excs = 1;
 
 /*Javascript sucks. heres a lift entry object*/
 function LiftEntry (eid, wid, rid, sid, nid)
@@ -17,7 +18,7 @@ function LiftEntry (eid, wid, rid, sid, nid)
 
 LiftEntry.prototype.check_complete = function () {
     empty = '';
-    console.log("things " + $(this.eid).val() + " " + $(this.wid).val() + " " + $(this.rid).val()+ " " + $(this.sid).val());
+    //console.log("things " + $(this.eid).val() + " " + $(this.wid).val() + " " + $(this.rid).val()+ " " + $(this.sid).val());
     if ($(this.eid).val() != empty &&
         $(this.wid).val() != empty &&
         $(this.rid).val() != empty &&
@@ -191,8 +192,7 @@ function add_autocomplete(id) {
 }
 
 function append_excercise() {
-    exind = liftEntries.length;
-
+    var exind = num_excs;
     var etable = "<table id='exc" + exind + "'>" +
   "<thead><tr><th></th><th>Weight</th><th>Reps</th><th>Sets</th></tr></thead>" +
   "<tbody id='e0'>" +
@@ -215,11 +215,14 @@ function append_excercise() {
 "</table> ";
     console.log(etable);
     $("#lifts").append(etable);
+    num_excs++;
 }
 
 //function append_lift_entry(table_id) {
-function append_lift_entry() {
-    exind = liftEntries[cur_table].length;
+function append_lift_entry(table) {
+    //exind = liftEntries[cur_table].length;
+    var exind = table.data("entries").length;
+    var cur_table = table.data("id");
 
     var erow = "<tr id='e" + cur_table + "ent" + exind + "'>" +
       "<td></td>" +
@@ -228,8 +231,8 @@ function append_lift_entry() {
       "<td><input type='number' id='e" + cur_table + "s" + exind + "' ></td>" +
       "<td> <input type='textarea' id='e" + cur_table + "n" + exind + "' placeholder='Notes'> </td>" +
     "</tr>";
-    console.log(erow);
-    $("#e" + cur_table).append(erow);
+    //console.log(erow);
+    table.append(erow);
 }
 
 function set_table_loc(table_id) {
@@ -270,6 +273,34 @@ function init_workouts() {
         jQuery.data(this, "entry", le[i]);
         i++;
     });
-    $('#exc0').data("entries", le);
+    table = $('#exc0');
+    table.data("entries", le);
+    table.data("id", 0);
 }
 
+function update_excs() {
+    $('table').each( function() {
+    });
+}
+
+function update_entries(new_entry) {
+    console.log(new_entry.id);
+    if (new_entry == pre_table) {
+        return;
+    }
+
+    var entry = pre_table;
+    pre_table = new_entry;
+    var entry_obj = jQuery.data(entry,"entry");
+
+    if (!entry_obj.complete && entry_obj.check_complete()) {
+        var table = $(entry).closest('table');
+        var entries = table.data("entries");
+        for (var i = 0; i < entries.length-1; i++) {
+            if (!entries[i].complete) {
+                return;
+            }
+        }
+        append_lift_entry(table);
+    }
+}
