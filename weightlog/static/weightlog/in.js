@@ -71,7 +71,7 @@ function set_date() {
 function add_workout_success(data, textStatus, jqXHR) {
     //var w_id = JSON.parse(data).id;
     workout_id = JSON.parse(data).id;
-    console.log('workout_id: ' + workout_id);
+    //console.log('workout_id: ' + workout_id);
 }
 
 function add_workout_error(jqXHR, textStatus, errorThrown) {
@@ -80,7 +80,7 @@ function add_workout_error(jqXHR, textStatus, errorThrown) {
 
 function add_lift_success(data, textStatus, jqXHR) {
     //var w_id = JSON.parse(data).id;
-    console.log("the data " + data + " |");
+    //console.log("the data " + data + " |");
     le = JSON.parse(data).id;
 }
 
@@ -89,16 +89,16 @@ function add_lift_error(jqXHR, textStatus, errorThrown) {
 
 /* Takes a LiftEntry object */
 function add_lift_entry(entry) {
-    console.log(entry.complete);
+    /*console.log(entry.complete);
     console.log($(entry.wid).val());
     console.log($(entry.rid).val());
     console.log($(entry.sid).val());
-    console.log($(entry.eid).val());
+    console.log($(entry.eid).val());*/
 
     var e_url = 'http://127.0.0.1:8000/api/v1/excercise/';
     var w_url = 'http://127.0.0.1:8000/api/v1/workout/';
     
-    console.log('ale workout_id: ' + workout_id);
+    //console.log('ale workout_id: ' + workout_id);
 
     var data = JSON.stringify(
             {
@@ -167,9 +167,9 @@ function add_autocomplete(id) {
           success: function( data ) {
               var d = JSON.parse(data);
               response($.map(d, function(obj) {
-                  console.log(obj);
+                  /*console.log(obj);
                   console.log(obj.name);
-                  console.log(obj.id);
+                  console.log(obj.id);*/
                   return {
                       label: obj.name,
                       value: obj.name,
@@ -184,7 +184,7 @@ function add_autocomplete(id) {
       },
         minLength: 2,
         select: function(event, ui) {
-            console.log("#e" + id_num);
+            //console.log("#e" + id_num);
             $('#e'+ id_num).val(ui.item.id);
         }
     });
@@ -193,7 +193,7 @@ function add_autocomplete(id) {
 
 function append_excercise() {
     var exind = num_excs;
-    var etable = "<table id='exc" + exind + "'>" +
+    /*var etable = "<table id='exc" + exind + "'>" +
   "<thead><tr><th></th><th>Weight</th><th>Reps</th><th>Sets</th></tr></thead>" +
   "<tbody id='e0'>" +
     "<tr id='e" + exind + "ent0'>" +
@@ -212,27 +212,58 @@ function append_excercise() {
       "<td> <input type='textarea' id='e" + exind + "n1' placeholder='Notes'> </td>" +
     "</tr>" +
   "</tbody>" +
+"</table> ";*/
+    var etable = "<table id='exc" + exind + "'>" +
+  "<thead><tr><th></th><th>Weight</th><th>Reps</th><th>Sets</th></tr></thead>" +
+  "<tbody id='e0'>" +
+  "</tbody>" +
 "</table> ";
+
     console.log(etable);
     $("#lifts").append(etable);
     num_excs++;
+    var table = $('#exc' + exind);
+    table.data("id", exind);
+    table.data("entries", []);
+    append_lift_entry(table);
+    append_lift_entry(table);
+}
+
+function le_id(table_id, w_s_r, exind) {
+    return 'e' + table_id + w_s_r + exind;
 }
 
 //function append_lift_entry(table_id) {
 function append_lift_entry(table) {
     //exind = liftEntries[cur_table].length;
-    var exind = table.data("entries").length;
+    var data = table.data("entries");
+    var exind = data.length;
     var cur_table = table.data("id");
+    var efield = '';
+
+    if (exind == 0) {
+        efield =  "<input type='text' name='excer' placeholder='Excercise' id='excer" + cur_table + "' class='excer ui-autocomplete-input' autocomplete='off'" + 
+        "<input type='hidden' id='e" + cur_table + "'>";
+    }
 
     var erow = "<tr id='e" + cur_table + "ent" + exind + "'>" +
-      "<td></td>" +
+      "<td>" + efield + "</td>" +
       "<td><input type='number' id='e" + cur_table + "w" + exind + "' ></td>" +
       "<td><input type='number' id='e" + cur_table + "r" + exind + "' ></td>" +
       "<td><input type='number' id='e" + cur_table + "s" + exind + "' ></td>" +
       "<td> <input type='textarea' id='e" + cur_table + "n" + exind + "' placeholder='Notes'> </td>" +
     "</tr>";
     //console.log(erow);
+    var e = 'e0';
     table.append(erow);
+    le = new LiftEntry('e' + cur_table, le_id(cur_table,'w',exind), le_id(cur_table,'r',exind),
+            le_id(cur_table, 's', exind), le_id(cur_table, 'n', exind));
+    data.push(le);
+    var row_id = '#e' + cur_table + 'ent' + exind;
+    $(row_id).data("entry", le);
+    $(row_id).focusin(function() {
+        update_entries(this);
+    });
 }
 
 function set_table_loc(table_id) {
@@ -285,6 +316,10 @@ function update_excs() {
 
 function update_entries(new_entry) {
     console.log(new_entry.id);
+    if (pre_table == null) {
+        pre_table = new_entry;
+        return;
+    }
     if (new_entry == pre_table) {
         return;
     }
@@ -293,7 +328,9 @@ function update_entries(new_entry) {
     pre_table = new_entry;
     var entry_obj = jQuery.data(entry,"entry");
 
+    //console.log(!entry_obj.complete + " " + entry_obj.check_complete());
     if (!entry_obj.complete && entry_obj.check_complete()) {
+        console.log("and we're here!\n");
         var table = $(entry).closest('table');
         var entries = table.data("entries");
         for (var i = 0; i < entries.length-1; i++) {
