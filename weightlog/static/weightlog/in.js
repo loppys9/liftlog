@@ -193,26 +193,6 @@ function add_autocomplete(id) {
 
 function append_excercise() {
     var exind = num_excs;
-    /*var etable = "<table id='exc" + exind + "'>" +
-  "<thead><tr><th></th><th>Weight</th><th>Reps</th><th>Sets</th></tr></thead>" +
-  "<tbody id='e0'>" +
-    "<tr id='e" + exind + "ent0'>" +
-      "<td><input type='text' name='excer' placeholder='Excercise' id='excer" + exind + "' class='excer ui-autocomplete-input' autocomplete='off'" + 
-        "<input type='hidden' id='e" + exind + "'></td>" + 
-      "<td><input type='number' id='e" + exind + "w0'></td>" +
-      "<td><input type='number' id='e" + exind + "r0'></td>" +
-      "<td><input type='number' id='e" + exind + "s0'></td>" +
-      "<td> <input type='textarea' id='e" + exind + "n0' placeholder='Notes'> </td>" +
-    "</tr>" + 
-    "<tr id='e" + exind + "ent1'>" +
-      "<td></td>" +
-      "<td><input type='number' id='e" + exind + "w1'></td>" +
-      "<td><input type='number' id='e" + exind + "r1'></td>" +
-      "<td><input type='number' id='e" + exind + "s1'></td>" +
-      "<td> <input type='textarea' id='e" + exind + "n1' placeholder='Notes'> </td>" +
-    "</tr>" +
-  "</tbody>" +
-"</table> ";*/
     var etable = "<table id='exc" + exind + "'>" +
   "<thead><tr><th></th><th>Weight</th><th>Reps</th><th>Sets</th></tr></thead>" +
   "<tbody id='e0'>" +
@@ -227,15 +207,16 @@ function append_excercise() {
     table.data("entries", []);
     append_lift_entry(table);
     append_lift_entry(table);
+    $("#excer" + exind).each( function() {
+        add_autocomplete(this.id);
+    });
 }
 
 function le_id(table_id, w_s_r, exind) {
     return 'e' + table_id + w_s_r + exind;
 }
 
-//function append_lift_entry(table_id) {
 function append_lift_entry(table) {
-    //exind = liftEntries[cur_table].length;
     var data = table.data("entries");
     var exind = data.length;
     var cur_table = table.data("id");
@@ -264,6 +245,15 @@ function append_lift_entry(table) {
     $(row_id).focusin(function() {
         update_entries(this);
     });
+}
+
+function add_new_excercise() {
+    $('table').each( function() {
+        if (!jQuery.data(this,"entries")[0].complete){
+            return;
+        }
+    });
+    append_excercise();
 }
 
 function set_table_loc(table_id) {
@@ -328,7 +318,6 @@ function update_entries(new_entry) {
     pre_table = new_entry;
     var entry_obj = jQuery.data(entry,"entry");
 
-    //console.log(!entry_obj.complete + " " + entry_obj.check_complete());
     if (!entry_obj.complete && entry_obj.check_complete()) {
         console.log("and we're here!\n");
         var table = $(entry).closest('table');
@@ -339,5 +328,6 @@ function update_entries(new_entry) {
             }
         }
         append_lift_entry(table);
+        add_new_excercise();
     }
 }
