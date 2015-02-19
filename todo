@@ -2,8 +2,8 @@ x add a complete new workout with one excersise (using submit)
 x add a new weight, set, reps when previous w/s/r is full.
 x add excersise with as many w/s/r's as full.
 x add a new excersise once a previous w/s/r is added (using submit).
-- add the new excersise automatically.
-- add all of the excersise on the page (using submit).
+x add the new excersise automatically.
+x add all of the excersise on the page (using submit).
 - remove extra w/s/r entries when selecting another excercise.
 - auto add excersises as they are finished (no submit).
 - Allow typing in the excersise without auto-complete if it matches.

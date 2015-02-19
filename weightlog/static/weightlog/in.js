@@ -71,6 +71,7 @@ function set_date() {
 function add_workout_success(data, textStatus, jqXHR) {
     //var w_id = JSON.parse(data).id;
     workout_id = JSON.parse(data).id;
+    add_lift_entries();
     //console.log('workout_id: ' + workout_id);
 }
 
@@ -124,23 +125,7 @@ function add_lift_entry(entry) {
     });
 }
 
-function add_workout() {
-    var data = JSON.stringify(
-            {"name": $('#wo_name').val(),
-            "date": $('#wo_date').val(),
-            "descr": $('#wo_descr').val()});
-
-    $.ajax({type: 'POST',
-        url: 'http://127.0.0.1:8000/api/v1/workout/',
-        data: data,
-        success: add_workout_success,
-        error: add_workout_error,
-        processData: false,
-        dataType: 'text',
-        contentType: 'application/json',
-        async: false
-    });
-
+function add_lift_entries() {
     $('table').each( function() {
         entries = jQuery.data(this, "entries");
         for (var i = 0; i < entries.length; i++) {
@@ -149,6 +134,29 @@ function add_workout() {
             }
         }
     });
+}
+
+function add_workout() {
+    if ($('#wo_name').val() == '') {
+        return;
+    }
+
+    var data = JSON.stringify(
+            {"name": $('#wo_name').val(),
+            "date": $('#wo_date').val(),
+            "descr": $('#wo_descr').val()});
+
+    return $.ajax({type: 'POST',
+        url: 'http://127.0.0.1:8000/api/v1/workout/',
+        data: data,
+        success: add_workout_success,
+        error: add_workout_error,
+        processData: false,
+        dataType: 'text',
+        contentType: 'application/json',
+        //async: false
+    });
+
 }
 
 function add_autocomplete(id) {
@@ -184,7 +192,7 @@ function add_autocomplete(id) {
       },
         minLength: 2,
         select: function(event, ui) {
-            //console.log("#e" + id_num);
+            //console.log("#e" + id_num + ' ' + ui.item.id);
             $('#e'+ id_num).val(ui.item.id);
         }
     });
@@ -199,7 +207,7 @@ function append_excercise() {
   "</tbody>" +
 "</table> ";
 
-    console.log(etable);
+    //console.log(etable);
     $("#lifts").append(etable);
     num_excs++;
     var table = $('#exc' + exind);
@@ -223,7 +231,7 @@ function append_lift_entry(table) {
     var efield = '';
 
     if (exind == 0) {
-        efield =  "<input type='text' name='excer' placeholder='Excercise' id='excer" + cur_table + "' class='excer ui-autocomplete-input' autocomplete='off'" + 
+        efield =  "<input type='text' name='excer' placeholder='Excercise' id='excer" + cur_table + "' class='excer ui-autocomplete-input' autocomplete='off'>" + 
         "<input type='hidden' id='e" + cur_table + "'>";
     }
 
@@ -248,12 +256,17 @@ function append_lift_entry(table) {
 }
 
 function add_new_excercise() {
+    var add_new = true;
     $('table').each( function() {
+        //console.log(this);
+        //console.log(jQuery.data(this,"entries")[0]);
         if (!jQuery.data(this,"entries")[0].complete){
-            return;
+            add_new = false;
         }
     });
-    append_excercise();
+    if (add_new) {
+        append_excercise();
+    }
 }
 
 function set_table_loc(table_id) {
@@ -305,7 +318,7 @@ function update_excs() {
 }
 
 function update_entries(new_entry) {
-    console.log(new_entry.id);
+    //console.log(new_entry.id);
     if (pre_table == null) {
         pre_table = new_entry;
         return;
@@ -319,7 +332,7 @@ function update_entries(new_entry) {
     var entry_obj = jQuery.data(entry,"entry");
 
     if (!entry_obj.complete && entry_obj.check_complete()) {
-        console.log("and we're here!\n");
+        //console.log("and we're here!\n");
         var table = $(entry).closest('table');
         var entries = table.data("entries");
         for (var i = 0; i < entries.length-1; i++) {
@@ -331,3 +344,4 @@ function update_entries(new_entry) {
         add_new_excercise();
     }
 }
+

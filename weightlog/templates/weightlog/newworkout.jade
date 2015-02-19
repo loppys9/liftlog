@@ -14,8 +14,9 @@ block extrascripts
                 update_entries(this);
             });
             $("#submit").click( function() {
-                //add_workout();
-                append_excercise();
+                //submit_workout();
+                add_workout();
+                //append_excercise();
             });
             $(".excer").each( function() {
                 add_autocomplete(this.id);
@@ -39,7 +40,7 @@ block content
             tbody#e0
                 tr#e0ent0
                     td
-                        input(type='text', name='excer', placeholder='excercise')#excer0.excer
+                        input(type='text', name='excer', placeholder='Excercise')#excer0.excer
                         input(type='hidden')#e0
                     td
                         input(type='number')#e0w0
