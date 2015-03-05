@@ -2,6 +2,7 @@
 var workout_id = "-1";
 var eind = 1;
 var exind = 0;
+var pre_entry = null;
 var pre_table = null;
 var num_excs = 1;
 
@@ -34,34 +35,6 @@ LiftEntry.prototype.check_complete = function () {
 
 /* Here is the end of the lift entry object */
 
-//var liftEntries = [];
-
-/*function fancy_text()
-{
-    //set the focus
-    var intext = $('input[type=text]');
-    intext.each( function(item, elem ) {
-        $(elem).before( '<span class="ll textcolor" id=l' + $(elem).attr('name') + '></span>' );
-        $(elem).after( '<span class="ll textcolor" id=r' + $(elem).attr('name') + '></span>' );
-    });
-
-    intext.focus( function() {
-        var n = $(this).attr('name');
-        $( '#l' + n).removeClass('textcolor');
-        $( '#r' + n).removeClass('textcolor');
-        $( '#l' + n).addClass('textfocuscolor');
-        $( '#r' + n).addClass('textfocuscolor');
-    });
-
-    intext.focusout( function() {
-        var n = $(this).attr('name');
-        $( '#l' + n).removeClass('textfocuscolor');
-        $( '#r' + n).removeClass('textfocuscolor');
-        $( '#l' + n).addClass('textcolor');
-        $( '#r' + n).addClass('textcolor');
-    });
-
-}*/
 
 function set_date() {
     var date = new Date().toISOString().substring(0,10);
@@ -69,10 +42,8 @@ function set_date() {
 }
 
 function add_workout_success(data, textStatus, jqXHR) {
-    //var w_id = JSON.parse(data).id;
     workout_id = JSON.parse(data).id;
     add_lift_entries();
-    //console.log('workout_id: ' + workout_id);
 }
 
 function add_workout_error(jqXHR, textStatus, errorThrown) {
@@ -80,7 +51,6 @@ function add_workout_error(jqXHR, textStatus, errorThrown) {
 }
 
 function add_lift_success(data, textStatus, jqXHR) {
-    //var w_id = JSON.parse(data).id;
     //console.log("the data " + data + " |");
     le = JSON.parse(data).id;
 }
@@ -146,7 +116,7 @@ function add_workout() {
             "date": $('#wo_date').val(),
             "descr": $('#wo_descr').val()});
 
-    return $.ajax({type: 'POST',
+    $.ajax({type: 'POST',
         url: 'http://127.0.0.1:8000/api/v1/workout/',
         data: data,
         success: add_workout_success,
@@ -160,9 +130,11 @@ function add_workout() {
 }
 
 function add_autocomplete(id) {
-    ac_source = "http://127.0.0.1:8000/api/v1/excercisesearch/"
+    var ac_source = "http://127.0.0.1:8000/api/v1/excercisesearch/"
 
-    id_num = id.substring(id.length-1, id.length);
+    var id_num = id.substring(id.length-1, id.length);
+    var cur_data;
+
     $("#" + id).autocomplete({
         source: function( request, response ) { 
             var d = JSON.stringify({"term": request.term});
@@ -174,16 +146,14 @@ function add_autocomplete(id) {
           },
           success: function( data ) {
               var d = JSON.parse(data);
-              response($.map(d, function(obj) {
-                  /*console.log(obj);
-                  console.log(obj.name);
-                  console.log(obj.id);*/
+              cur_data = $.map(d, function(obj) {
                   return {
                       label: obj.name,
                       value: obj.name,
                       id: obj.id
                   };
-              }));
+              });
+              response(cur_data);
           },
             error: function(jqXHR, textStatus, errorThrown){
                 alert(jqXHR);                        
@@ -192,9 +162,21 @@ function add_autocomplete(id) {
       },
         minLength: 2,
         select: function(event, ui) {
-            //console.log("#e" + id_num + ' ' + ui.item.id);
             $('#e'+ id_num).val(ui.item.id);
-        }
+        },
+        change: function(event, ui) {
+            if (ui.item) {
+                return;
+            }
+            var value = this.value;
+            console.log(value);
+            console.log(cur_data.length);
+            for (var i=0; i<cur_data.length; i++) {
+                if (value === cur_data[i].value) {
+                    $('#e'+ id_num).val(cur_data[i].id);
+                }
+            }
+        },
     });
 
 }
@@ -217,6 +199,9 @@ function append_excercise() {
     append_lift_entry(table);
     $("#excer" + exind).each( function() {
         add_autocomplete(this.id);
+    });
+    table.focusin(function() {
+        update_tables(this);
     });
 }
 
@@ -319,16 +304,16 @@ function update_excs() {
 
 function update_entries(new_entry) {
     //console.log(new_entry.id);
-    if (pre_table == null) {
-        pre_table = new_entry;
+    if (pre_entry == null) {
+        pre_entry = new_entry;
         return;
     }
-    if (new_entry == pre_table) {
+    if (new_entry == pre_entry) {
         return;
     }
 
-    var entry = pre_table;
-    pre_table = new_entry;
+    var entry = pre_entry;
+    pre_entry = new_entry;
     var entry_obj = jQuery.data(entry,"entry");
 
     if (!entry_obj.complete && entry_obj.check_complete()) {
@@ -343,5 +328,33 @@ function update_entries(new_entry) {
         append_lift_entry(table);
         add_new_excercise();
     }
+}
+
+function hide_extra_entries(table) {
+    var entries = jQuery.data(table, "entries");
+    var len = entries.length;
+    if (!entries[len-1].complete && !entries[len-2].complete) {
+        var rows = $(table).find('> tbody > tr');
+        $(rows[len-1]).fadeTo(100,0);
+    }
+}
+
+function show_extra_entries(table) {
+        var row = $(table).find('> tbody > tr').last();
+        row.fadeTo(100,1);
+}
+
+function update_tables(new_table) {
+    if (pre_table == null) {
+        pre_table = new_table;
+        return;
+    }
+
+    if (new_table == pre_table) {
+        return;
+    }
+    hide_extra_entries(pre_table);
+    show_extra_entries(new_table);
+    pre_table = new_table;
 }
 

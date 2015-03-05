@@ -13,6 +13,9 @@ block extrascripts
             $("#e0 tr").focusin(function() {
                 update_entries(this);
             });
+            $("table").focusin(function() {
+                update_tables(this);
+            });
             $("#submit").click( function() {
                 //submit_workout();
                 add_workout();
