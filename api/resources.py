@@ -13,6 +13,10 @@ import json
 class WorkoutValidation(Validation):
     def is_valid(self, bundle, request=None):
         errors = {}
+        ws = Workout.objects.filter(date=bundle.data['date'], user=bundle.request.user)
+        for w in ws:
+            if w.name == bundle.data['name']:
+                errors['Workout'] = ['Workout with that name already exists']
         if len(bundle.data['name']) > 250:
             errors['name'] = ['Name length too long.']
         try:
@@ -58,9 +62,9 @@ class ExcerciseResource(ModelResource):
 
 class ExcerciseSearchValidation(Validation):
     def is_valid(self, bundle, request=None):
-        print('is valid')
+        #print('is valid')
         errors = {}
-        print( request)
+        #print( request)
         if len(bundle.data['name']) > 250:
             errors['name'] = ['Name length too long.']
         return errors
@@ -80,7 +84,7 @@ class ExcerciseSearchResource(ModelResource):
         if phrase and (len(phrase) < 250):
             #change startswith if a different search is desired.
             excercise = list(Excercise.objects.filter(name__startswith=phrase).values('id', 'name'))
-            print(excercise)
+            #print(excercise)
             #return self.create_response(request, {'excercise': excercise})
             return self.create_response(request, json.dumps(excercise))
 

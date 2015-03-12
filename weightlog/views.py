@@ -6,10 +6,16 @@ import logging
 
 logger = logging.getLogger(__name__)
 
+@login_required
+def listworkout(request):
+    """Workout page"""
+    context = {}
+    return render(request, 'weightlog/listworkout.jade', context)
+    #return render(request, 'weightlog/newworkout.html', context)
 
 @login_required
-def workout(request):
-    """Workout page"""
+def new_workout(request):
+    """New workout page"""
     context = {}
     return render(request, 'weightlog/newworkout.jade', context)
     #return render(request, 'weightlog/newworkout.html', context)
