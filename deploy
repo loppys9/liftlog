@@ -1,12 +1,9 @@
-pip install django
-pip install python mimeparse
-pip install django-tastypie
+pip3 install django
+pip3 install python mimeparse
 pip3 install py-bcrypt
-ln -s $(Python-directory)/tastypie $(liftlog)/tastypie
+pip3 install djangorestframework
+pip3 install django-rest-auth
+pip3 install django-cors-headers
 
 user: shane, pwd: shane
-
-group that need adding:
-    members
-    coaches
 

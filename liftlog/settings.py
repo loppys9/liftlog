@@ -72,6 +72,7 @@ STATICFILES_DIRS = (
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
+    '/home/shane/code/liftlog-ui/dist/',
 )
 
 # List of finder classes that know how to find static files in
@@ -91,11 +92,13 @@ TEMPLATE_LOADERS = (
 #        'django.template.loaders.filesystem.Loader',
 #    'django.template.loaders.app_directories.Loader',
 #    )),
-    ('pyjade.ext.django.Loader',(
-        'django.template.loaders.filesystem.Loader',
-    'django.template.loaders.app_directories.Loader',
-    )),
+    #('pyjade.ext.django.Loader',(
+    #    'django.template.loaders.filesystem.Loader',
+    #'django.template.loaders.app_directories.Loader',
+    #)),
 #     'django.template.loaders.eggs.Loader',
+    ('django.template.loaders.filesystem.Loader',
+ 'django.template.loaders.app_directories.Loader')
 )
 
 TEST_RUNNER = 'django.test.runner.DiscoverRunner'
@@ -106,6 +109,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     # Uncomment the next line for simple clickjacking protection:
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
@@ -119,7 +123,7 @@ TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-    '/home/shane/code/liftlog/templates',
+    '/home/shane/code/liftlog-ui/dist/',
 )
 
 INSTALLED_APPS = (
@@ -133,6 +137,10 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
+    'rest_framework',
+    'rest_framework.authtoken',
+    'rest_auth',
+    'corsheaders',
     'weightlog',
 )
 
@@ -176,3 +184,21 @@ LOGGING = {
         },
     }
 }
+
+REST_FRAMEWORK = {
+    'PAGE_SIZE': 10,
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    )
+}
+
+CORS_ORIGIN_WHITELIST = (
+    'http://127.0.0.1:8000',
+    '127.0.0.1:8000',
+)
+
+CORS_ALLOW_CREDENTIALS = True
