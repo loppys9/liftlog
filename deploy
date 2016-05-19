@@ -1,3 +1,4 @@
+apt-get install python3-psycopg2
 pip3 install django
 pip3 install python mimeparse
 pip3 install py-bcrypt
